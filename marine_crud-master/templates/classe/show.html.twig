@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+    {% block title %}
+        Boat Lover - {{ classe.wording }}
+    {% endblock %}
+
+    {% block body %}
+        <style>
+            .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+            .card {width: 80%; }
+        </style>
+        <div class="example-wrapper">
+            <h1>Fiche de la classe </h1>
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><span class="badge rounded-pill bg-primary">Libellé</span>
+                        <strong>{{ classe.wording }}</strong></h5>
+                </div>
+                <div class="card-body">
+                    <h4>Les bateaux du libellé</h4>
+                        {% if boats is not empty %}
+                            {% for boat in boats %}
+                                <span class="badge rounded-pill bg-light text-dark"><a href="{{ path('boat.show', {id: boat.id}) }}">{{ boat.name }}</a></span>
+                            {% endfor %}
+                        {% else %}
+                            <p>Aucun navire ne possède ce libellé</p>
+                        {% endif %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    {% endblock %}

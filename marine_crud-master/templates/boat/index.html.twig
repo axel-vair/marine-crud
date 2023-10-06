@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bonjour Marin!{% endblock %}
+
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .card {width: 80%; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Tous les navires</h1>
+
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<div class="boat">
+    {% for boat in boats %}
+
+        <div class="card mt-4 mb-4">
+
+            <div class="card-body">
+                <h5 class="card-title"><strong>{{ boat.name }}</strong></h5>
+                <p class="card-text">Lorem ipsum leorum in dalum ex nihile lo ferodum elore adatum ios</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><span class="badge rounded-pill bg-light text-dark">Identifiant</span> {{ boat.identifier }}</li>
+                <li class="list-group-item"><span class="badge rounded-pill bg-light text-dark">Longueur</span> {{ boat.length }}</li>
+                <li class="list-group-item"><span class="badge rounded-pill bg-light text-dark">Poids</span>{{ boat.tonnage }}</li>
+                <li class="list-group-item"><span class="badge rounded-pill bg-light text-dark">Libellé</span><a href="{{ path('classe.show', {id: boat.classe.id}) }}">{{ boat.classe.wording }}</a></li>
+            </ul>
+        </div>
+
+        <p>
+            <a href="{{ path('boat.show', {id: boat.id}) }}" type="button" class="btn btn-outline-primary">Voir la fiche</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('boat.edit', {id: boat.id}) }}" type="button" class="btn btn-outline-primary">Modifier</a>
+                <a href="{{ path('boat.delete', {id: boat.id}) }}"type="button" class="btn btn-danger">Supprimer</a>
+            {% endif %}
+        </p>
+
+
+
+    {% endfor %}
+
+
+    <div class="navigation mt-4">
+        {{ knp_pagination_render(boats) }}
+    </div>
+</div>
+</div>
+{% endblock %}

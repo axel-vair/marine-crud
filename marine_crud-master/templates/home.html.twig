@@ -1,0 +1,33 @@
+{% extends "/base.html.twig" %}
+
+{% block title %} Boat Lover - Accueil
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Bienvenue sur Boat Lover !</h1>
+            <p class="lead">Boat Lover est un site internet par les passionnés de navires pour les passionnés.</p>
+            <hr class="my-4">
+
+            {% if app.user %}
+                {% if app.user.lastName and app.user.firstName %}
+                    <p>Vous êtes connecté.e en tant que {{ app.user.lastName }}  {{ app.user.firstName }}.</p>
+                {% else %}
+                    <p>Bienvenue !</p>
+                    <p>Vous pouvez renseigner votre nom et prénom dans votre profil.  <a href="{{ path('user.edit', {id: app.user.id}) }}" class="btn btn-primary" role="button">Mon profil</a></p>
+
+                {% endif %}
+            {% else %}
+            <p>Inscris-toi en moins de 2 minutes pour accéder à toutes les données des navires !.</p>
+            <p><a href="{{ path("register.index") }}" class="btn btn-primary">S'inscrire</a></p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+{%  endblock %}

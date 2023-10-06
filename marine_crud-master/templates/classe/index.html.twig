@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classe !{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<div class="example-wrapper">
+    <h1>Toutes les classes</h1>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    {% for classe in classes %}
+    <ul class="list-group mt-4 mb-2">
+        <li class="list-group-item"> {{ classe.wording }}</li>
+    </ul>
+
+        <p>
+            <a href="{{ path('classe.show', {id: classe.id}) }}" type="button" class="btn btn-outline-primary">Voir la fiche</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('classe.edit', {id: classe.id}) }}" type="button" class="btn btn-outline-primary">Modifier</a>
+            {% endif %}
+        </p>
+
+
+
+    {% endfor %}
+
+    <div class="navigation mt-4">
+        {{ knp_pagination_render(classes) }}
+    </div>
+</div>
+{% endblock %}
